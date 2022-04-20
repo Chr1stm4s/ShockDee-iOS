@@ -1,0 +1,95 @@
+.bg-main {
+    background-color: #00b9db;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+}
+
+footer a > span {
+    font-size: 10px;
+}
+
+div#map {
+    width: 100%;
+    height: 65vh;
+    background-color: antiquewhite;
+}
+
+div#mapFound {
+    min-height: 350px;
+    width: 100%;
+    background-color: antiquewhite;
+}
+
+#overlayer {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 10;
+    background: #ffc107;
+}
+
+.loader {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    position: fixed;
+    z-index: 30;
+    border: 4px solid #00b9db;
+    top: 50%;
+    animation: loader 2s infinite ease;
+}
+
+.loader-inner {
+    vertical-align: top;
+    display: inline-block;
+    width: 100%;
+    background-color: #00b9db;
+    animation: loader-inner 2s infinite ease-in;
+}
+
+@keyframes loader {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(180deg);
+    }
+
+    50% {
+        transform: rotate(180deg);
+    }
+
+    75% {
+        transform: rotate(360deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes loader-inner {
+    0% {
+        height: 0%;
+    }
+
+    25% {
+        height: 0%;
+    }
+
+    50% {
+        height: 100%;
+    }
+
+    75% {
+        height: 100%;
+    }
+
+    100% {
+        height: 0%;
+    }
+}
