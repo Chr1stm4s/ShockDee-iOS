@@ -154,84 +154,81 @@
         }
 
         function initMap() {
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 12,
-                center: {
-                    lat: parseFloat(sessionStorage.getItem("lat")),
-                    lng: parseFloat(sessionStorage.getItem("lng"))
-                }
-            });
-
-            var infoWin = new google.maps.InfoWindow();
-
-            var markers = locations.map(function(location, i) {
-                var marker = new google.maps.Marker({
-                    position: location,
-                    animation: google.maps.Animation.DROP,
-                    icon: '<?=rootURL();?>images/indicator.png'
+            $.getJSON('https://shockdee.com/api/aeds-location.php', function(locations) {
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 12,
+                    center: {
+                        lat: parseFloat(sessionStorage.getItem("lat")),
+                        lng: parseFloat(sessionStorage.getItem("lng"))
+                    }
                 });
-                
-                google.maps.event.addListener(marker, 'click', function(evt) {
-                    infoWin.setContent(location.info);
-                    infoWin.open(map, marker);
-                })
 
-                return marker;
-            });
+                var infoWin = new google.maps.InfoWindow();
+                var markers = locations.map(function(location, i) {
+                    var marker = new google.maps.Marker({
+                        position: location,
+                        animation: google.maps.Animation.DROP,
+                        icon: 'https://www.shockdee.com/images/indicator.png'
+                    });
+                    
+                    google.maps.event.addListener(marker, 'click', function(evt) {
+                        infoWin.setContent(location.info);
+                        infoWin.open(map, marker);
+                    })
 
-            // Add a marker clusterer to manage the markers.
-            var markerCluster = new MarkerClusterer(map, markers, {
-                imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+                    return marker;
+                });
+
+                // Add a marker clusterer to manage the markers.
+                var markerCluster = new MarkerClusterer(map, markers, {
+                    imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+                });
             });
         }
 
         function initSearchMap(address) {
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 12,
-                center: {
-                    lat: 0,
-                    lng: 0
-                }
-            });
-
-            var geocoder = new google.maps.Geocoder();
-
-            geocoder.geocode({'address': address}, function(results, status) {
-                if (status === 'OK') {
-                    map.setCenter(results[0].geometry.location);
-                } else {
-                    alert('Geocode was not successful for the following reason: ' + status);
-                }
-            });
-
-            var infoWin = new google.maps.InfoWindow();
-
-            var markers = locations.map(function(location, i) {
-                var marker = new google.maps.Marker({
-                    position: location,
-                    animation: google.maps.Animation.DROP,
-                    icon: '<?=rootURL();?>images/indicator.png'
+            $.getJSON('https://shockdee.com/api/aeds-location.php', function(locations) {
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 12,
+                    center: {
+                        lat: 0,
+                        lng: 0
+                    }
                 });
-                
-                google.maps.event.addListener(marker, 'click', function(evt) {
-                    infoWin.setContent(location.info);
-                    infoWin.open(map, marker);
-                })
 
-                return marker;
-            });
+                var geocoder = new google.maps.Geocoder();
 
-            // Add a marker clusterer to manage the markers.
-            var markerCluster = new MarkerClusterer(map, markers, {
-                imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+                geocoder.geocode({'address': address}, function(results, status) {
+                    if (status === 'OK') {
+                        map.setCenter(results[0].geometry.location);
+                    } else {
+                        alert('Geocode was not successful for the following reason: ' + status);
+                    }
+                });
+
+                var infoWin = new google.maps.InfoWindow();
+
+                var markers = locations.map(function(location, i) {
+                    var marker = new google.maps.Marker({
+                        position: location,
+                        animation: google.maps.Animation.DROP,
+                        icon: 'https://www.shockdee.com/images/indicator.png'
+                    });
+                    
+                    google.maps.event.addListener(marker, 'click', function(evt) {
+                        infoWin.setContent(location.info);
+                        infoWin.open(map, marker);
+                    })
+
+                    return marker;
+                });
+
+                // Add a marker clusterer to manage the markers.
+                var markerCluster = new MarkerClusterer(map, markers, {
+                    imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+                });
             });
         }
-
-        var locations = [
-
-            
-
-        ];
 
         google.maps.event.addDomListener(window, "load", initMap);
 
